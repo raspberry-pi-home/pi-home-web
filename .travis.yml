@@ -16,6 +16,7 @@ deploy:
   local_dir: build
   on:
     branch: master
+    node_js: 8
 notifications:
   email: false
   slack:
