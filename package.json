@@ -7,7 +7,7 @@
     "email": "gustavo.ingrassia@gmail.com"
   },
   "license": "MIT",
-  "homepage": "https://raspberry-pi-home.github.io/pi-home-web",
+  "homepage": "https://raspberry-pi-home.github.io/pi-home-web/",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/raspberry-pi-home/pi-home-web.git"
