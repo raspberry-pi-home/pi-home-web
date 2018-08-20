@@ -12,23 +12,75 @@
     "type": "git",
     "url": "git+https://github.com/raspberry-pi-home/pi-home-web.git"
   },
-  "dependencies": {
-    "react": "^16.2.0",
-    "react-dom": "^16.2.0",
-    "react-scripts": "1.1.1"
-  },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject",
-    "predeploy": "npm run build",
+    "start": "webpack-dev-server --mode development --config ./webpack.config.js --port 9999",
+    "watch": "webpack --watch --mode development --config ./webpack.config.js",
+    "build:prod": "webpack --mode production --config ./webpack.config.js",
+    "build:dev": "webpack --mode development --config ./webpack.config.js",
+    "lint": "eslint src/",
+    "test": "jest --ci --reporters=default --reporters=jest-junit",
+    "validate": "npm run lint && npm run test",
+    "predeploy": "npm run validate && npm run build:prod",
     "deploy": "gh-pages -d build"
   },
   "engines": {
-    "node": ">=6"
+    "node": ">=8"
+  },
+  "jest": {
+    "moduleNameMapper": {
+      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/__mocks__/fileMock.js",
+      "\\.(css)$": "<rootDir>/__mocks__/styleMock.js"
+    }
   },
   "devDependencies": {
-    "gh-pages": "^1.1.0"
+    "airbnb-js-shims": "^2.1.0",
+    "babel-core": "^6.26.3",
+    "babel-eslint": "^8.2.6",
+    "babel-jest": "^23.4.2",
+    "babel-loader": "^7.1.5",
+    "babel-plugin-add-module-exports": "^0.2.1",
+    "babel-plugin-dynamic-import-node": "^2.0.0",
+    "babel-plugin-dynamic-import-webpack": "^1.0.2",
+    "babel-plugin-transform-class-properties": "^6.24.1",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-react": "^6.24.1",
+    "babel-preset-stage-3": "^6.24.1",
+    "clean-webpack-plugin": "^0.1.19",
+    "copy-webpack-plugin": "^4.5.2",
+    "css-loader": "^1.0.0",
+    "enzyme": "^3.4.4",
+    "enzyme-adapter-react-15.4": "^1.0.6",
+    "eslint": "^5.4.0",
+    "eslint-loader": "^2.1.0",
+    "eslint-plugin-babel": "^5.1.0",
+    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-jest": "^21.21.0",
+    "eslint-plugin-react": "^7.11.1",
+    "file-loader": "^1.1.11",
+    "gh-pages": "^1.1.0",
+    "html-webpack-plugin": "^3.2.0",
+    "image-webpack-loader": "^4.3.1",
+    "jest": "^23.5.0",
+    "jest-enzyme": "^6.0.3",
+    "jest-junit": "^5.1.0",
+    "lodash": "^4.17.10",
+    "postcss": "^7.0.2",
+    "postcss-cssnext": "^3.1.0",
+    "postcss-loader": "^3.0.0",
+    "prop-types": "^15.6.2",
+    "react": "^16.4.2",
+    "react-dom": "^16.4.2",
+    "react-redux": "^5.0.7",
+    "react-router": "^4.3.1",
+    "react-router-redux": "^4.0.8",
+    "redux": "^4.0.0",
+    "redux-devtools-extension": "^2.13.5",
+    "redux-logger": "^3.0.6",
+    "redux-thunk": "^2.3.0",
+    "style-loader": "^0.22.1",
+    "webpack": "^4.16.5",
+    "webpack-cli": "^3.1.0",
+    "webpack-dev-server": "^3.1.5",
+    "whatwg-fetch": "^2.0.4"
   }
 }
