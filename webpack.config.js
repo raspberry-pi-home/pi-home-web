@@ -7,8 +7,8 @@ const SWPrecacheWebpackPlugin = require('sw-precache-webpack-plugin');
 const webpack = require('webpack');
 
 const {
-    packageName,
-    homepage
+    homepage,
+    name: packageName
 } = require('./package.json');
 
 const getBuildPath = () => path.resolve(__dirname, 'build');
