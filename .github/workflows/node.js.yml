@@ -39,6 +39,9 @@ jobs:
 
     - run: npm run test
 
-    - name: npm run deploy
+    - name: Deploy to gh-pages
       if: startsWith(matrix.node-version, 10)
-      run: npm run deploy
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        deploy_key: ${{ secrets.ACTIONS_DEPLOY_KEY }}
+        publish_dir: ./build
