@@ -1,11 +1,11 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "c72107d36905b860684e38cdb657524b",
+    "revision": "fb0af185f23110778c43e4835615b11e",
     "url": "/pi-home-web/index.html"
   },
   {
-    "revision": "ee7fcb01cfc1cfbae0e5",
-    "url": "/pi-home-web/static/css/main.5f361e03.chunk.css"
+    "revision": "175c65f958cb0b63be72",
+    "url": "/pi-home-web/static/css/main.76c9d8fc.chunk.css"
   },
   {
     "revision": "c9aa695a81c11b2de6df",
@@ -16,15 +16,15 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/pi-home-web/static/js/2.2adb3b21.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "ee7fcb01cfc1cfbae0e5",
-    "url": "/pi-home-web/static/js/main.75898837.chunk.js"
+    "revision": "175c65f958cb0b63be72",
+    "url": "/pi-home-web/static/js/main.c2b3bb1f.chunk.js"
   },
   {
     "revision": "bd43debf06276145c44f",
     "url": "/pi-home-web/static/js/runtime-main.0386c351.js"
   },
   {
-    "revision": "5d5d9eefa31e5e13a6610d9fa7a283bb",
-    "url": "/pi-home-web/static/media/logo.5d5d9eef.svg"
+    "revision": "68206974a253df5aff2096b6a9c62dfe",
+    "url": "/pi-home-web/static/media/logo.68206974.png"
   }
 ]);
