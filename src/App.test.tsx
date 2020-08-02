@@ -4,6 +4,6 @@ import App from './App'
 
 test('renders learn react link', () => {
   const { getByText } = render(<App />)
-  const linkElement = getByText(/learn react/i)
-  expect(linkElement).toBeInTheDocument()
+  const h1Element = getByText(/Pi Home/i)
+  expect(h1Element).toBeInTheDocument()
 })
