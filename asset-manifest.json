@@ -1,0 +1,23 @@
+{
+  "files": {
+    "main.css": "/pi-home-web/static/css/main.5f361e03.chunk.css",
+    "main.js": "/pi-home-web/static/js/main.75898837.chunk.js",
+    "main.js.map": "/pi-home-web/static/js/main.75898837.chunk.js.map",
+    "runtime-main.js": "/pi-home-web/static/js/runtime-main.0386c351.js",
+    "runtime-main.js.map": "/pi-home-web/static/js/runtime-main.0386c351.js.map",
+    "static/js/2.2adb3b21.chunk.js": "/pi-home-web/static/js/2.2adb3b21.chunk.js",
+    "static/js/2.2adb3b21.chunk.js.map": "/pi-home-web/static/js/2.2adb3b21.chunk.js.map",
+    "index.html": "/pi-home-web/index.html",
+    "precache-manifest.5455f1b5e22e7981d6d682bf9905851a.js": "/pi-home-web/precache-manifest.5455f1b5e22e7981d6d682bf9905851a.js",
+    "service-worker.js": "/pi-home-web/service-worker.js",
+    "static/css/main.5f361e03.chunk.css.map": "/pi-home-web/static/css/main.5f361e03.chunk.css.map",
+    "static/js/2.2adb3b21.chunk.js.LICENSE.txt": "/pi-home-web/static/js/2.2adb3b21.chunk.js.LICENSE.txt",
+    "static/media/logo.svg": "/pi-home-web/static/media/logo.5d5d9eef.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.0386c351.js",
+    "static/js/2.2adb3b21.chunk.js",
+    "static/css/main.5f361e03.chunk.css",
+    "static/js/main.75898837.chunk.js"
+  ]
+}

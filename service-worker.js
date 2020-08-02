@@ -1,1 +1,39 @@
-"use strict";var precacheConfig=[["https://raspberry-pi-home.github.io/pi-home-web/6c9a7fbe0399bf3ce03278e706509dd0.png","6c9a7fbe0399bf3ce03278e706509dd0"],["https://raspberry-pi-home.github.io/pi-home-web/favicon.ico","5ad3e04c806dc350e00aa8bcac252c23"],["https://raspberry-pi-home.github.io/pi-home-web/images/icons/icon-128x128.png","f14517140436efa33cca0473cefda4f1"],["https://raspberry-pi-home.github.io/pi-home-web/images/icons/icon-16x16.png","dcebc8e66b9b41ce3e678c865b8382ef"],["https://raspberry-pi-home.github.io/pi-home-web/images/icons/icon-24x24.png","115eb4e118b73f2b90800a74db0f267e"],["https://raspberry-pi-home.github.io/pi-home-web/images/icons/icon-256x256.png","31731c82ba8203d4ea510ad3b8348b5b"],["https://raspberry-pi-home.github.io/pi-home-web/images/icons/icon-32x32.png","7ccca16256da34d3cebd92c68eec4ef2"],["https://raspberry-pi-home.github.io/pi-home-web/images/icons/icon-48x48.png","12aad09c84cec642b077786dd31adb9b"],["https://raspberry-pi-home.github.io/pi-home-web/images/icons/icon-64x64.png","e4cbfd4f3795a4b845e4cd0fc7d06dae"],["https://raspberry-pi-home.github.io/pi-home-web/images/icons/icon-72x72.png","aeeba966e2270a871630e2db4f8a22d3"],["https://raspberry-pi-home.github.io/pi-home-web/images/icons/icon-96x96.png","68206974a253df5aff2096b6a9c62dfe"],["https://raspberry-pi-home.github.io/pi-home-web/index.html","9b90532a502a1f21f3bb1ae3121dd1dc"],["https://raspberry-pi-home.github.io/pi-home-web/manifest.json","8b5c02e4c0a77010a350acda1dbd848c"],["https://raspberry-pi-home.github.io/pi-home-web/pi-home-web.js","f91f98918494504d72684403d627ed73"]],cacheName="sw-precache-v3-pi-home-web-"+(self.registration?self.registration.scope:""),ignoreUrlParametersMatching=[/^utm_/],addDirectoryIndex=function(e,t){var r=new URL(e);return"/"===r.pathname.slice(-1)&&(r.pathname+=t),r.toString()},cleanResponse=function(e){return e.redirected?("body"in e?Promise.resolve(e.body):e.blob()).then(function(t){return new Response(t,{headers:e.headers,status:e.status,statusText:e.statusText})}):Promise.resolve(e)},createCacheKey=function(e,t,r,n){var i=new URL(e);return n&&i.pathname.match(n)||(i.search+=(i.search?"&":"")+encodeURIComponent(t)+"="+encodeURIComponent(r)),i.toString()},isPathWhitelisted=function(e,t){if(0===e.length)return!0;var r=new URL(t).pathname;return e.some(function(e){return r.match(e)})},stripIgnoredUrlParameters=function(e,t){var r=new URL(e);return r.hash="",r.search=r.search.slice(1).split("&").map(function(e){return e.split("=")}).filter(function(e){return t.every(function(t){return!t.test(e[0])})}).map(function(e){return e.join("=")}).join("&"),r.toString()},hashParamName="_sw-precache",urlsToCacheKeys=new Map(precacheConfig.map(function(e){var t=e[0],r=e[1],n=new URL(t,self.location),i=createCacheKey(n,hashParamName,r,/\.\w{8}\./);return[n.toString(),i]}));function setOfCachedUrls(e){return e.keys().then(function(e){return e.map(function(e){return e.url})}).then(function(e){return new Set(e)})}self.addEventListener("install",function(e){e.waitUntil(caches.open(cacheName).then(function(e){return setOfCachedUrls(e).then(function(t){return Promise.all(Array.from(urlsToCacheKeys.values()).map(function(r){if(!t.has(r)){var n=new Request(r,{credentials:"same-origin"});return fetch(n).then(function(t){if(!t.ok)throw new Error("Request for "+r+" returned a response with status "+t.status);return cleanResponse(t).then(function(t){return e.put(r,t)})})}}))})}).then(function(){return self.skipWaiting()}))}),self.addEventListener("activate",function(e){var t=new Set(urlsToCacheKeys.values());e.waitUntil(caches.open(cacheName).then(function(e){return e.keys().then(function(r){return Promise.all(r.map(function(r){if(!t.has(r.url))return e.delete(r)}))})}).then(function(){return self.clients.claim()}))}),self.addEventListener("fetch",function(e){if("GET"===e.request.method){var t,r=stripIgnoredUrlParameters(e.request.url,ignoreUrlParametersMatching);(t=urlsToCacheKeys.has(r))||(r=addDirectoryIndex(r,"index.html"),t=urlsToCacheKeys.has(r));var n="https://raspberry-pi-home.github.io/pi-home-web/index.html";!t&&"navigate"===e.request.mode&&isPathWhitelisted([],e.request.url)&&(r=new URL(n,self.location).toString(),t=urlsToCacheKeys.has(r)),t&&e.respondWith(caches.open(cacheName).then(function(e){return e.match(urlsToCacheKeys.get(r)).then(function(e){if(e)return e;throw Error("The cached response that was expected is missing.")})}).catch(function(t){return console.warn('Couldn\'t serve response for "%s" from cache: %O',e.request.url,t),fetch(e.request)}))}});
+/**
+ * Welcome to your Workbox-powered service worker!
+ *
+ * You'll need to register this file in your web app and you should
+ * disable HTTP caching for this file too.
+ * See https://goo.gl/nhQhGp
+ *
+ * The rest of the code is auto-generated. Please don't update this file
+ * directly; instead, make changes to your Workbox build configuration
+ * and re-run your build process.
+ * See https://goo.gl/2aRDsh
+ */
+
+importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
+
+importScripts(
+  "/pi-home-web/precache-manifest.5455f1b5e22e7981d6d682bf9905851a.js"
+);
+
+self.addEventListener('message', (event) => {
+  if (event.data && event.data.type === 'SKIP_WAITING') {
+    self.skipWaiting();
+  }
+});
+
+workbox.core.clientsClaim();
+
+/**
+ * The workboxSW.precacheAndRoute() method efficiently caches and responds to
+ * requests for URLs in the manifest.
+ * See https://goo.gl/S9QRab
+ */
+self.__precacheManifest = [].concat(self.__precacheManifest || []);
+workbox.precaching.precacheAndRoute(self.__precacheManifest, {});
+
+workbox.routing.registerNavigationRoute(workbox.precaching.getCacheKeyForURL("/pi-home-web/index.html"), {
+  
+  blacklist: [/^\/_/,/\/[^/?]+\.[^/]+$/],
+});
