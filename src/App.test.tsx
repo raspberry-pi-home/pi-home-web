@@ -1,9 +1,8 @@
 import React from 'react'
 import { render } from '@testing-library/react'
+
 import App from './App'
 
-test('renders learn react link', () => {
-  const { getByText } = render(<App />)
-  const h1Element = getByText(/Pi Home/i)
-  expect(h1Element).toBeInTheDocument()
+test('renders App without breaking', () => {
+  expect(() => render(<App />)).not.toThrow()
 })

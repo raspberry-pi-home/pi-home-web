@@ -1,19 +1,24 @@
-import React from 'react'
-import logo from './logo.png'
-import './App.css'
+import React, { Suspense } from 'react'
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <h1 className="App-title">Welcome to Pi Home</h1>
-      </header>
-      <p className="App-intro">
-        Coming soon...
-      </p>
-    </div>
-  )
-}
+import routes from './routes'
+import Layout from './Layout'
 
-export default App
+export default () => (
+  <Router basename={process.env.PUBLIC_URL}>
+    <Suspense fallback={<div>Loading...</div>}>
+      <Layout>
+        <Switch>
+          {routes.map((route, index) => (
+            <Route
+              key={index}
+              path={route.path}
+              exact={route.exact}
+              component={route.component}
+            />
+          ))}
+        </Switch>
+      </Layout>
+    </Suspense>
+  </Router>
+)
