@@ -6,8 +6,6 @@ name: Node.js CI
 on:
   push:
     branches: [ master ]
-  pull_request:
-    branches: [ master ]
 
 jobs:
   build:
@@ -29,12 +27,39 @@ jobs:
 
     - run: npm ci
 
-    - name: npm run lint
-      if: startsWith(matrix.node-version, 10) || startsWith(matrix.node-version, 12) || startsWith(matrix.node-version, 14)
-      run: npm run lint
+    - run: npm run lint
 
     - run: npm run type-check
 
     - run: npm run build
 
     - run: npm run test
+
+  deploy:
+
+    runs-on: ubuntu-latest
+
+    needs: build
+
+    strategy:
+      matrix:
+        node-version: [12.x]
+
+    steps:
+    - name: checkout repo
+      uses: actions/checkout@v2
+
+    - name: use node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ matrix.node-version }}
+
+    - run: npm ci
+
+    - run: npm run build
+
+    - name: Deploy
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./build
