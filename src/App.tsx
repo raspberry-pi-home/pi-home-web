@@ -2,7 +2,7 @@ import React, { Suspense } from 'react'
 import { HashRouter as Router, Route, Switch } from 'react-router-dom'
 
 import routes from './routes'
-import Layout from './Layout'
+import Layout from './components/layout'
 
 export default () => (
   <Router basename={process.env.PUBLIC_URL}>

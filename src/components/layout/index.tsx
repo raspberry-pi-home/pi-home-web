@@ -13,10 +13,10 @@ import ListItemText from '@material-ui/core/ListItemText'
 import MenuIcon from '@material-ui/icons/Menu'
 import Toolbar from '@material-ui/core/Toolbar'
 import Typography from '@material-ui/core/Typography'
-import { makeStyles, useTheme, Theme, createStyles } from '@material-ui/core/styles'
+import { Theme, makeStyles, useTheme, createStyles } from '@material-ui/core/styles'
 
-import routes from './routes'
-import Logo from './Logo'
+import routes from '../../routes'
+import Logo from './logo'
 
 const drawerWidth = 240
 
@@ -102,7 +102,13 @@ export default ({ children }: Props) => {
   const handleDrawerToggle = () => setMobileOpen(!mobileOpen)
 
   let headerTitle = 'Not Found'
-  const currentRoute = routes.find(route => route.path === location.pathname)
+  const currentRoute = routes.find(route => {
+    if (route.path !== '/' && route.path !== '/*') {
+      return location.pathname.startsWith(route.path)
+    }
+
+    return route.path === location.pathname
+  })
   if (currentRoute && currentRoute.label) {
     headerTitle = currentRoute.label
   }
@@ -110,12 +116,14 @@ export default ({ children }: Props) => {
   const drawer = (
     <div>
       <div className={classes.toolbar}>
-        <Logo />
+        <Link to={'/'} className={classes.navListLink} onClick={() => setMobileOpen(false)}>
+          <Logo />
+        </Link>
       </div>
       <Divider />
       <List>
         {
-          routes.filter(route => route.label).map((route) => (
+          routes.filter(route => route.sidebar).map((route) => (
             <CustomListItem
               key={route.path}
               label={route.label}

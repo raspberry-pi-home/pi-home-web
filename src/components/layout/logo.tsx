@@ -1,8 +1,6 @@
 import React from 'react'
 import Typography from '@material-ui/core/Typography'
-import { makeStyles, Theme, createStyles } from '@material-ui/core/styles'
-
-import logo from './logo.png'
+import { Theme, makeStyles, createStyles } from '@material-ui/core/styles'
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   root: {
@@ -14,6 +12,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
   },
   text: {
     textAlign: 'center',
+    color: 'black',
   },
 }))
 
@@ -22,7 +21,7 @@ export default () => {
 
   return (
     <div className={classes.root}>
-      <img alt="Pi Home" className={classes.logo} src={logo} />
+      <img alt="Pi Home" className={classes.logo} src={`${process.env.PUBLIC_URL}/images/icons/icon-96x96.png`} />
       <Typography variant="h5" className={classes.text} noWrap>
         Pi Home
       </Typography>

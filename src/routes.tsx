@@ -3,17 +3,19 @@ import DeviceHubIcon from '@material-ui/icons/DeviceHub'
 import SettingsIcon from '@material-ui/icons/Settings'
 import InfoIcon from '@material-ui/icons/Info'
 
-import Home from './Home'
-import Devices from './Devices'
-import Settings from './Settings'
-import About from './About'
-import NotFound from './NotFound'
+import HomePage from './pages/home'
+import DevicesPage from './pages/devices'
+import SettingsPage from './pages/settings'
+import AboutPage from './pages/about'
+import WelcomePage from './pages/welcome'
+import NotFoundPage from './pages/not-found'
 
 interface Route {
   path: string,
   component: any,
   label?: string,
   exact?: boolean,
+  sidebar?: boolean,
   divider?: boolean,
   icon?: any,
 }
@@ -24,32 +26,41 @@ export default [
     label: 'Home',
     exact: true,
     icon: HomeIcon,
-    component: Home,
+    component: HomePage,
+    sidebar: true,
   },
   {
     path: '/devices',
     label: 'Devices',
-    exact: true,
     divider: true,
     icon: DeviceHubIcon,
-    component: Devices,
+    component: DevicesPage,
+    sidebar: true,
   },
   {
     path: '/settings',
     label: 'Settings',
     exact: true,
     icon: SettingsIcon,
-    component: Settings,
+    component: SettingsPage,
+    sidebar: true,
   },
   {
     path: '/about',
     label: 'About',
     exact: true,
     icon: InfoIcon,
-    component: About,
+    component: AboutPage,
+    sidebar: true,
+  },
+  {
+    path: '/welcome',
+    label: 'Welcome',
+    exact: true,
+    component: WelcomePage,
   },
   {
     path: '/*',
-    component: NotFound,
+    component: NotFoundPage,
   },
-] as Array<Route>
+] as Route[]
