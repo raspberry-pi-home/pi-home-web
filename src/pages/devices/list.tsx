@@ -11,7 +11,7 @@ interface Device {
 }
 
 export default () => {
-  const { data, loading } = useFetch<Device[]>('/api/devices?type=configured')
+  const { data, loading } = useFetch<Device[]>('/api/devices')
 
   return (
     <>
