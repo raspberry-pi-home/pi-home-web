@@ -4,6 +4,7 @@ import { Route, Redirect, Switch, useRouteMatch } from 'react-router-dom'
 import List from './list'
 import Add from './add'
 import Edit from './edit'
+import View from './view'
 import useLocalStorage from '../../hooks/useLocalStorage'
 import NotFoundPage from '../not-found'
 
@@ -20,6 +21,7 @@ export default () => {
       <Switch>
         <Route exact path={path} component={List} />
         <Route exact path={`${path}/add`} component={Add} />
+        <Route exact path={`${path}/view/:id(\\d+)`} component={View} />
         <Route exact path={`${path}/edit/:id(\\d+)`} component={Edit} />
         <Route path={`${path}/*`} component={NotFoundPage} />
       </Switch>

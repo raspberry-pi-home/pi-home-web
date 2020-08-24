@@ -1,5 +1,7 @@
-import React from 'react'
+import React, { useState } from 'react'
+import { Link } from 'react-router-dom'
 import { Theme, createStyles, makeStyles } from '@material-ui/core/styles'
+import grey from '@material-ui/core/colors/grey'
 import Grid from '@material-ui/core/Grid'
 import Card from '@material-ui/core/Card'
 import CardActionArea from '@material-ui/core/CardActionArea'
@@ -9,6 +11,8 @@ import Button from '@material-ui/core/Button'
 import Typography from '@material-ui/core/Typography'
 import ToggleOnIcon from '@material-ui/icons/ToggleOn'
 import EmojiObjectsIcon from '@material-ui/icons/EmojiObjects'
+
+import useLocalStorage from '../../hooks/useLocalStorage'
 
 interface Device {
   pin: number
@@ -48,30 +52,52 @@ const useStyles = makeStyles((theme: Theme) =>
       margin: '0 2px',
       transform: 'scale(0.8)',
     },
+    link: {
+      textDecoration: 'none',
+      color: grey[500],
+    },
   }),
 )
 
 const Device = ({ device }: DeviceProps) => {
   const classes = useStyles()
+  const [deviceStatus, setDeviceStatus] = useState(device.status)
+  const [serverBaseUrl] = useLocalStorage('serverBaseUrl')
+
+  const onButtonClick = async (statusToSet: number) => {
+    if (deviceStatus === statusToSet) {
+      const res = await fetch(`${serverBaseUrl}/api/devices/change-status`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          'pin': device.pin,
+        }),
+      })
+      const { status } = await res.json()
+      setDeviceStatus(status)
+    }
+  }
 
   let icon = null
   let iconStyles = { fontSize: 200 }
   let actions = null
   if (device.type === 'led') {
-    if (device.status === 1) {
+    if (deviceStatus) {
       // @ts-ignore TS2322
       iconStyles = { ...iconStyles, fill: '#ffef62' }
     }
     icon = <EmojiObjectsIcon style={iconStyles} />
     actions = (
       <>
-        <Button size="small" color="primary">
+        <Button size="small" color="primary" onClick={() => onButtonClick(1)}>
           Off
         </Button>
         <Typography variant="h5" component="h2">
           <span className={classes.bullet}>•</span>
         </Typography>
-        <Button size="small" color="primary">
+        <Button size="small" color="primary" onClick={() => onButtonClick(0)}>
           On
         </Button>
       </>
@@ -84,7 +110,9 @@ const Device = ({ device }: DeviceProps) => {
     <Grid item lg={3} md={4} xs={6}>
       <Card className={classes.card}>
         <CardActionArea>
-          {icon}
+          <Link to={`/devices/view/${device.pin}`} className={classes.link}>
+            {icon}
+          </Link>
           <CardContent>
             <Typography gutterBottom variant="h5" component="h2">
               {device.label}
