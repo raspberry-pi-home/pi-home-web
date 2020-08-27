@@ -43,7 +43,7 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     cardActionsRoot: {
       padding: 8,
-      display: 'block',
+      display: 'inline-flex',
     },
     media: {
       height: 140,
