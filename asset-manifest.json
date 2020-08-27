@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/pi-home-web/static/css/main.20826070.chunk.css",
-    "main.js": "/pi-home-web/static/js/main.0ace1b04.chunk.js",
-    "main.js.map": "/pi-home-web/static/js/main.0ace1b04.chunk.js.map",
+    "main.js": "/pi-home-web/static/js/main.f6d14b15.chunk.js",
+    "main.js.map": "/pi-home-web/static/js/main.f6d14b15.chunk.js.map",
     "runtime-main.js": "/pi-home-web/static/js/runtime-main.0386c351.js",
     "runtime-main.js.map": "/pi-home-web/static/js/runtime-main.0386c351.js.map",
     "static/js/2.6c7ff828.chunk.js": "/pi-home-web/static/js/2.6c7ff828.chunk.js",
     "static/js/2.6c7ff828.chunk.js.map": "/pi-home-web/static/js/2.6c7ff828.chunk.js.map",
     "index.html": "/pi-home-web/index.html",
-    "precache-manifest.6a2f6c6a8c9a50a44ce858e976bdd1a3.js": "/pi-home-web/precache-manifest.6a2f6c6a8c9a50a44ce858e976bdd1a3.js",
+    "precache-manifest.d4fd8f7407784daa1b82a27a3a124d1e.js": "/pi-home-web/precache-manifest.d4fd8f7407784daa1b82a27a3a124d1e.js",
     "service-worker.js": "/pi-home-web/service-worker.js",
     "static/css/main.20826070.chunk.css.map": "/pi-home-web/static/css/main.20826070.chunk.css.map",
     "static/js/2.6c7ff828.chunk.js.LICENSE.txt": "/pi-home-web/static/js/2.6c7ff828.chunk.js.LICENSE.txt"
@@ -17,6 +17,6 @@
     "static/js/runtime-main.0386c351.js",
     "static/js/2.6c7ff828.chunk.js",
     "static/css/main.20826070.chunk.css",
-    "static/js/main.0ace1b04.chunk.js"
+    "static/js/main.f6d14b15.chunk.js"
   ]
 }
