@@ -41,6 +41,10 @@ const useStyles = makeStyles((theme: Theme) =>
     cardActions: {
       height: 50,
     },
+    cardActionsRoot: {
+      padding: 8,
+      display: 'block',
+    },
     media: {
       height: 140,
       width: 140,
@@ -51,6 +55,9 @@ const useStyles = makeStyles((theme: Theme) =>
       display: 'inline-block',
       margin: '0 2px',
       transform: 'scale(0.8)',
+    },
+    actionItem: {
+      display: 'inline-block',
     },
     link: {
       textDecoration: 'none',
@@ -81,7 +88,7 @@ const Device = ({ device }: DeviceProps) => {
   }
 
   let icon = null
-  let iconStyles = { fontSize: 200 }
+  let iconStyles = { fontSize: 125 }
   let actions = null
   if (device.type === 'led') {
     if (deviceStatus) {
@@ -91,13 +98,13 @@ const Device = ({ device }: DeviceProps) => {
     icon = <EmojiObjectsIcon style={iconStyles} />
     actions = (
       <>
-        <Button size="small" color="primary" onClick={() => onButtonClick(1)}>
+        <Button size="small" color="primary" className={classes.actionItem} onClick={() => onButtonClick(1)}>
           Off
         </Button>
-        <Typography variant="h5" component="h2">
+        <Typography variant="h5" component="h2" className={classes.actionItem}>
           <span className={classes.bullet}>•</span>
         </Typography>
-        <Button size="small" color="primary" onClick={() => onButtonClick(0)}>
+        <Button size="small" color="primary" className={classes.actionItem} onClick={() => onButtonClick(0)}>
           On
         </Button>
       </>
@@ -119,7 +126,7 @@ const Device = ({ device }: DeviceProps) => {
             </Typography>
           </CardContent>
         </CardActionArea>
-        <CardActions className={classes.cardActions}>
+        <CardActions className={classes.cardActions} classes={{ root: classes.cardActionsRoot }}>
           {actions}
         </CardActions>
       </Card>
