@@ -50,7 +50,7 @@ export default () => {
 
   return (
     <>
-      {loading ? <CircularProgress /> : <Devices devices={data} />}
+      {!error && loading ? <CircularProgress /> : <Devices devices={data} />}
     </>
   )
 }
