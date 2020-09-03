@@ -1,22 +1,22 @@
 {
   "files": {
     "main.css": "/pi-home-web/static/css/main.20826070.chunk.css",
-    "main.js": "/pi-home-web/static/js/main.95a39e12.chunk.js",
-    "main.js.map": "/pi-home-web/static/js/main.95a39e12.chunk.js.map",
+    "main.js": "/pi-home-web/static/js/main.521de9a0.chunk.js",
+    "main.js.map": "/pi-home-web/static/js/main.521de9a0.chunk.js.map",
     "runtime-main.js": "/pi-home-web/static/js/runtime-main.0386c351.js",
     "runtime-main.js.map": "/pi-home-web/static/js/runtime-main.0386c351.js.map",
-    "static/js/2.f1657b2c.chunk.js": "/pi-home-web/static/js/2.f1657b2c.chunk.js",
-    "static/js/2.f1657b2c.chunk.js.map": "/pi-home-web/static/js/2.f1657b2c.chunk.js.map",
+    "static/js/2.75ab7ae4.chunk.js": "/pi-home-web/static/js/2.75ab7ae4.chunk.js",
+    "static/js/2.75ab7ae4.chunk.js.map": "/pi-home-web/static/js/2.75ab7ae4.chunk.js.map",
     "index.html": "/pi-home-web/index.html",
-    "precache-manifest.06a940716c6180bad17baef5be4da46a.js": "/pi-home-web/precache-manifest.06a940716c6180bad17baef5be4da46a.js",
+    "precache-manifest.613f0b8bf90eba0cdb91cd8a1b3487a3.js": "/pi-home-web/precache-manifest.613f0b8bf90eba0cdb91cd8a1b3487a3.js",
     "service-worker.js": "/pi-home-web/service-worker.js",
     "static/css/main.20826070.chunk.css.map": "/pi-home-web/static/css/main.20826070.chunk.css.map",
-    "static/js/2.f1657b2c.chunk.js.LICENSE.txt": "/pi-home-web/static/js/2.f1657b2c.chunk.js.LICENSE.txt"
+    "static/js/2.75ab7ae4.chunk.js.LICENSE.txt": "/pi-home-web/static/js/2.75ab7ae4.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.0386c351.js",
-    "static/js/2.f1657b2c.chunk.js",
+    "static/js/2.75ab7ae4.chunk.js",
     "static/css/main.20826070.chunk.css",
-    "static/js/main.95a39e12.chunk.js"
+    "static/js/main.521de9a0.chunk.js"
   ]
 }
