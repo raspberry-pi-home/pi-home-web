@@ -51,11 +51,6 @@ const useStyles = makeStyles((theme: Theme) =>
       display: 'block',
       margin: 'auto',
     },
-    bullet: {
-      display: 'inline-block',
-      margin: '0 2px',
-      transform: 'scale(0.8)',
-    },
     actionItem: {
       display: 'inline-block',
     },
@@ -70,6 +65,11 @@ const Device = ({ device }: DeviceProps) => {
   const classes = useStyles()
   const [deviceStatus, setDeviceStatus] = useState(device.status)
   const [serverBaseUrl] = useLocalStorage('serverBaseUrl')
+
+  // force re-render
+  if (deviceStatus !== device.status) {
+    setDeviceStatus(device.status)
+  }
 
   const onButtonClick = async (statusToSet: number) => {
     if (deviceStatus === statusToSet) {
@@ -98,14 +98,8 @@ const Device = ({ device }: DeviceProps) => {
     icon = <EmojiObjectsIcon style={iconStyles} />
     actions = (
       <>
-        <Button size="small" color="primary" className={classes.actionItem} onClick={() => onButtonClick(1)}>
-          Off
-        </Button>
-        <Typography variant="h5" component="h2" className={classes.actionItem}>
-          <span className={classes.bullet}>•</span>
-        </Typography>
-        <Button size="small" color="primary" className={classes.actionItem} onClick={() => onButtonClick(0)}>
-          On
+        <Button size="small" color="primary" className={classes.actionItem} onClick={() => onButtonClick(deviceStatus || 0)}>
+          {deviceStatus ? 'Turn Off' : 'Turn On'}
         </Button>
       </>
     )

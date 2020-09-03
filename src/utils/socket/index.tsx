@@ -12,15 +12,19 @@ export const disconnectSocket = (): void => {
   }
 }
 
-export const subscribeTo = (eventName: string, callback: (data: any) => void): void => {
+export const subscribeTo = (event: string, callback: (eventName: string, data: object) => void): void => {
   if (socket) {
-    socket.on(eventName, (data: any) => {
-      callback(data)
+    socket.on(event, (eventName: string | object, data?: object) => {
+      if (data) {
+        callback(eventName as string, data)
+      } else {
+        callback(event, eventName as object)
+      }
     })
   }
 }
 
-export const sendData = (eventName: string, data: any): void => {
+export const sendData = (eventName: string, data: object): void => {
   if (socket) {
     socket.emit(eventName, data)
   }
