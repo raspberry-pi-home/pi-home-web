@@ -1,6 +1,7 @@
-import React, { useState } from 'react'
+import React, { useEffect, useCallback, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { Theme, createStyles, makeStyles } from '@material-ui/core/styles'
+import CircularProgress from '@material-ui/core/CircularProgress'
 import grey from '@material-ui/core/colors/grey'
 import Grid from '@material-ui/core/Grid'
 import Card from '@material-ui/core/Card'
@@ -12,7 +13,9 @@ import Typography from '@material-ui/core/Typography'
 import ToggleOnIcon from '@material-ui/icons/ToggleOn'
 import EmojiObjectsIcon from '@material-ui/icons/EmojiObjects'
 
+import Snackbar from '../snackbar'
 import useLocalStorage from '../../hooks/useLocalStorage'
+import { initiateSocket, disconnectSocket, subscribeTo } from '../../utils/socket'
 
 interface Device {
   pin: number
@@ -21,47 +24,59 @@ interface Device {
   status?: number
 }
 
-interface DevicesProps {
+interface Props {
+  devicesPath: string
+}
+
+interface DeviceListProps {
   devices: Device[] | null
 }
 
-interface DeviceProps {
+interface DeviceItemProps {
   device: Device
 }
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    root: {
-      flexGrow: 1,
-    },
-    card: {
-      textAlign: 'center',
-      color: theme.palette.text.secondary,
-    },
-    cardActions: {
-      height: 50,
-    },
-    cardActionsRoot: {
-      padding: 8,
-      display: 'inline-flex',
-    },
-    media: {
-      height: 140,
-      width: 140,
-      display: 'block',
-      margin: 'auto',
-    },
-    actionItem: {
-      display: 'inline-block',
-    },
-    link: {
-      textDecoration: 'none',
-      color: grey[500],
-    },
-  }),
-)
+interface MessageData {
+  pin?: number
+  status?: boolean
+}
 
-const Device = ({ device }: DeviceProps) => {
+interface Message {
+  eventName: string
+  data: MessageData
+}
+
+const useStyles = makeStyles((theme: Theme) => createStyles({
+  root: {
+    flexGrow: 1,
+  },
+  card: {
+    textAlign: 'center',
+    color: theme.palette.text.secondary,
+  },
+  cardActions: {
+    height: 50,
+  },
+  cardActionsRoot: {
+    padding: 8,
+    display: 'inline-flex',
+  },
+  media: {
+    height: 140,
+    width: 140,
+    display: 'block',
+    margin: 'auto',
+  },
+  actionItem: {
+    display: 'inline-block',
+  },
+  link: {
+    textDecoration: 'none',
+    color: grey[500],
+  },
+}))
+
+const DeviceItem = ({ device }: DeviceItemProps) => {
   const classes = useStyles()
   const [deviceStatus, setDeviceStatus] = useState(device.status)
   const [serverBaseUrl] = useLocalStorage('serverBaseUrl')
@@ -128,14 +143,79 @@ const Device = ({ device }: DeviceProps) => {
   )
 }
 
-export default ({ devices } : DevicesProps) => {
+const DeviceList = ({ devices }: DeviceListProps) => {
   const classes = useStyles()
 
   return (
     <div className={classes.root}>
       <Grid container spacing={3}>
-        {devices && devices.map(device => <Device key={device.pin} device={device} />)}
+        {devices && devices.map(device => <DeviceItem key={device.pin} device={device} />)}
       </Grid>
     </div>
+  )
+}
+
+export default ({ devicesPath }: Props) => {
+  const [serverBaseUrl] = useLocalStorage('serverBaseUrl')
+  const [message, setMessage] = useState<Message | null>(null)
+  const [data, setData] = useState<Device[] | null>(null)
+  const [error, setError] = useState<string | null>(null)
+  const [loading, setLoading] = useState(false)
+
+  const fetchData = useCallback(async () => {
+    setMessage(null)
+    setLoading(true)
+
+    const data = await fetch(`${serverBaseUrl}${devicesPath}`)
+
+    if (data.ok) {
+      setData(await data.json())
+    } else {
+      setError(await data.text())
+    }
+
+    setLoading(false)
+  }, [serverBaseUrl, devicesPath])
+
+  useEffect(() => {
+    fetchData()
+
+    if (serverBaseUrl) {
+      initiateSocket(`${serverBaseUrl}`)
+
+      subscribeTo('all', (eventName: string, data: object) => setMessage({ eventName, data }))
+    }
+
+    return () => {
+      disconnectSocket()
+    }
+  }, [fetchData, serverBaseUrl])
+
+  if (message && data) {
+    switch (message.eventName) {
+    case 'deviceStatusChanged':
+      const devices = data.map((device) => {
+        if (device.pin === message.data.pin) {
+          return {
+            ...device,
+            status: message.data.status,
+          } as Device
+        }
+        return device
+      }) as Device[]
+
+      setData(devices)
+      setMessage(null)
+      break
+    default:
+      break
+    }
+  }
+
+  return (
+    <>
+      <Snackbar message={error} severity="error" onClose={() => setError(null)}/>
+      {!error ? loading ? <CircularProgress /> : <DeviceList devices={data} /> : null}
+    </>
   )
 }

@@ -3,9 +3,10 @@ import Button from '@material-ui/core/Button'
 import Typography from '@material-ui/core/Typography'
 import CircularProgress from '@material-ui/core/CircularProgress'
 import CheckIcon from '@material-ui/icons/Check'
+import CancelIcon from '@material-ui/icons/Cancel'
 import { Form, FormikProps, Formik, Field, FieldProps } from 'formik'
 import { Theme, makeStyles, createStyles } from '@material-ui/core/styles'
-import { green } from '@material-ui/core/colors'
+import { green, red } from '@material-ui/core/colors'
 import clsx from 'clsx'
 import * as Yup from 'yup'
 
@@ -13,6 +14,9 @@ import TextField from '../inputs/text-field'
 import useLocalStorage from '../../hooks/useLocalStorage'
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
+  title: {
+    marginBottom: theme.spacing(1),
+  },
   wrapper: {
     margin: theme.spacing(1),
     position: 'relative',
@@ -21,6 +25,12 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     backgroundColor: green[500],
     '&:hover': {
       backgroundColor: green[700],
+    },
+  },
+  buttonError: {
+    backgroundColor: red[500],
+    '&:hover': {
+      backgroundColor: red[700],
     },
   },
   buttonProgress: {
@@ -56,7 +66,7 @@ export default () => {
 
   return (
     <>
-      <Typography variant="h5" noWrap>
+      <Typography variant="h5" className={classes.title} noWrap>
         Server Settings
       </Typography>
 
@@ -67,24 +77,31 @@ export default () => {
         validationSchema={schema}
         onSubmit={(values, { setSubmitting, setStatus }) => {
           // async simulation
-          setStatus(true)
           setTimeout(() => {
-            // @ts-ignore TS2349
-            setServerBaseUrl(values.serverBaseUrl)
+            try {
+              setStatus('success')
+              // @ts-ignore TS2349
+              setServerBaseUrl(values.serverBaseUrl)
+            } catch (error) {
+              setStatus('error')
+            }
             setSubmitting(false)
           }, 500)
         }}
       >
         {({ isSubmitting, status }: FormikProps<Values>) => {
           const buttonClassname = clsx({
-            [classes.buttonSuccess]: status,
+            [classes.buttonSuccess]: status === 'success',
+            [classes.buttonError]: status === 'error',
           })
 
           let buttonContent: any = 'Save'
           if (isSubmitting) {
             buttonContent = <CircularProgress size={24} className={classes.buttonProgress} />
-          } else if (status) {
+          } else if (status === 'success') {
             buttonContent = <CheckIcon />
+          } else if (status === 'error') {
+            buttonContent = <CancelIcon />
           }
 
           return(

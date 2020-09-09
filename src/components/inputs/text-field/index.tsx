@@ -4,12 +4,9 @@ import InputAdornment from '@material-ui/core/InputAdornment'
 import ErrorIcon from '@material-ui/icons/ReportProblem'
 import { Theme, createStyles, makeStyles } from '@material-ui/core/styles'
 
-interface CustomInputProps extends Omit<TextFieldProps, 'variant' | 'error' | 'name'> {
-  name: string,
-  className?: string,
+interface CustomInputProps extends Omit<TextFieldProps, 'error' | 'name'> {
+  name: string
   error?: any
-  variant?: string,
-  maxLength?: number
 }
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
@@ -18,22 +15,17 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
   },
 }))
 
-export default ({ className, error, inputProps = {}, variant = 'filled', ...textFieldProps }: CustomInputProps) => {
+export default ({ error, ...props }: CustomInputProps) => {
   const classes = useStyles()
 
   return (
     <TextField
-      data-id="custom-input"
-      {...textFieldProps}
-      className={className}
-      variant={variant as any}
+      {...props}
       fullWidth
+      variant="outlined"
       margin="dense"
       error={!!error}
       helperText={error}
-      inputProps={{
-        maxLength: inputProps.maxLength,
-      }}
       InputProps={{
         endAdornment: error && (
           <InputAdornment position="end">

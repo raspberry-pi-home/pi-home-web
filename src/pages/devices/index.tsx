@@ -21,8 +21,8 @@ export default () => {
       <Switch>
         <Route exact path={path} component={List} />
         <Route exact path={`${path}/add`} component={Add} />
-        <Route exact path={`${path}/view/:id(\\d+)`} component={View} />
-        <Route exact path={`${path}/edit/:id(\\d+)`} component={Edit} />
+        <Route exact path={`${path}/view/:deviceId(\\d+)`} component={View} />
+        <Route exact path={`${path}/edit/:deviceId(\\d+)`} component={Edit} />
         <Route path={`${path}/*`} component={NotFoundPage} />
       </Switch>
     </>
