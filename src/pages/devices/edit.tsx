@@ -1,15 +1,24 @@
 import React, { useEffect, useCallback, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import CircularProgress from '@material-ui/core/CircularProgress'
+import Box from '@material-ui/core/Box'
 
 import useLocalStorage from '../../hooks/useLocalStorage'
 import Snackbar from '../../components/snackbar'
 import DeviceSettings from '../../components/devices/settings'
+import DeviceDependencies from '../../components/devices/dependencies'
+
+interface InnerDevice {
+  pin: number
+  label: string
+  type: string
+}
 
 interface Device {
   pin: number
   label: string
   type: string
+  dependencies: InnerDevice[]
   status?: number
 }
 
@@ -41,7 +50,13 @@ export default () => {
   return (
     <>
       <Snackbar message={error} severity="error" onClose={() => setError(null)}/>
-      {!error ? loading ? <CircularProgress /> : <DeviceSettings device={data} /> : null}
+      {data ? loading ? <CircularProgress /> : (
+        <>
+          <DeviceSettings device={data} />
+          <Box p={2} />
+          <DeviceDependencies device={data} />
+        </>
+      ) : null}
     </>
   )
 }

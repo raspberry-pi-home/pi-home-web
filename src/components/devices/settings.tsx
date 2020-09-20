@@ -1,4 +1,5 @@
 import React, { useEffect, useCallback, useState } from 'react'
+import { useHistory } from 'react-router-dom'
 import Button from '@material-ui/core/Button'
 import Typography from '@material-ui/core/Typography'
 import CircularProgress from '@material-ui/core/CircularProgress'
@@ -13,6 +14,7 @@ import Select from '@material-ui/core/Select'
 import MenuItem from '@material-ui/core/MenuItem'
 import clsx from 'clsx'
 import * as Yup from 'yup'
+import { startCase } from 'lodash'
 
 import TextField from '../inputs/text-field'
 import useLocalStorage from '../../hooks/useLocalStorage'
@@ -43,7 +45,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
   },
 }))
 
-const schema = Yup.object().shape({
+const deviceSchema = Yup.object().shape({
   pin: Yup.number().required('Required'),
   label: Yup.string().required('Required'),
   type: Yup.string().required('Required'),
@@ -72,6 +74,7 @@ interface AvailableDevices {
 
 export default ({ device }: Props) => {
   const classes = useStyles()
+  const history = useHistory()
   const [serverBaseUrl] = useLocalStorage('serverBaseUrl')
   const [data, setData] = useState<AvailableDevices | null>(null)
   const [error, setError] = useState<string | null>(null)
@@ -110,11 +113,11 @@ export default ({ device }: Props) => {
               label: device?.label || '',
               type: device?.type || '',
             }}
-            validationSchema={schema}
+            validationSchema={deviceSchema}
             onSubmit={async (values, { setSubmitting, setStatus }) => {
               const url = device ? `${serverBaseUrl}/api/devices/${device.pin}` : `${serverBaseUrl}/api/devices/`
               const method = device ? 'PUT' : 'POST'
-              const data = await fetch(url, {
+              const result = await fetch(url, {
                 method,
                 headers: {
                   'Content-Type': 'application/json',
@@ -122,15 +125,16 @@ export default ({ device }: Props) => {
                 body: JSON.stringify(values),
               })
 
-              if (data.ok) {
-                // TODO
-                // eslint-disable-next-line no-console
-                console.log(await data.json())
+              if (result.ok) {
+                const { pin }: Device = await result.json()
                 setStatus('success')
+                setTimeout(() => {
+                  history.push(`/devices/view/${pin}`)
+                }, 750)
               } else {
-                // TODO:
+                // TODO: handle error
                 // eslint-disable-next-line no-console
-                console.log(await data.text())
+                console.log(await result.text())
                 setStatus('error')
               }
 
@@ -176,7 +180,7 @@ export default ({ device }: Props) => {
                             id: 'type',
                           }}
                         >
-                          {availableTypes.map(item => <MenuItem key={item} value={item}>{item}</MenuItem>)}
+                          {availableTypes.map(item => <MenuItem key={item} value={item}>{startCase(item)}</MenuItem>)}
                         </Select>
                       </FormControl>
                     )}

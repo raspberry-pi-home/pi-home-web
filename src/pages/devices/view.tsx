@@ -20,20 +20,22 @@ interface Device {
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   speedDial: {
-    position: 'absolute',
-    bottom: theme.spacing(2),
+    top: 'auto',
     right: theme.spacing(2),
+    bottom: theme.spacing(2),
+    left: 'auto',
+    position: 'fixed',
   },
 }))
 
 export default () => {
+  const classes = useStyles()
+  const history = useHistory()
   const { deviceId } = useParams()
   const [serverBaseUrl] = useLocalStorage('serverBaseUrl')
   const [data, setData] = useState<Device | null>(null)
   const [error, setError] = useState<string | null>(null)
   const [loading, setLoading] = useState(false)
-  const classes = useStyles()
-  const history = useHistory()
   const [speedDialOpen, setSpeedDialOpen] = useState(false)
 
   const fetchData = useCallback(async () => {
@@ -54,16 +56,30 @@ export default () => {
     fetchData()
   }, [fetchData])
 
-  const handleDeleteDevice = () => {
+  const handleDeleteDevice = async () => {
     setSpeedDialOpen(false)
-    // TODO
-    history.push('/devices')
+    // TODO: display dialog
+    // @ts-ignore TS7022
+    const result = await fetch(`${serverBaseUrl}/api/devices/${data?.pin}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+
+    if (result.ok) {
+      setTimeout(() => {
+        history.push('/devices')
+      }, 750)
+    } else {
+      setError(await result.text())
+    }
   }
 
   return (
     <>
       <Snackbar message={error} severity="error" onClose={() => setError(null)}/>
-      {!error ? loading ? <CircularProgress /> : (
+      {data ? loading ? <CircularProgress /> : (
         <>
           view device {data?.pin}
           <SpeedDial

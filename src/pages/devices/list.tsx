@@ -8,9 +8,11 @@ import Devices from '../../components/devices'
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   fab: {
-    position: 'absolute',
-    bottom: theme.spacing(2),
+    top: 'auto',
     right: theme.spacing(2),
+    bottom: theme.spacing(2),
+    left: 'auto',
+    position: 'fixed',
   },
 }))
 

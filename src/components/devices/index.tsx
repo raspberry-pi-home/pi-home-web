@@ -11,6 +11,7 @@ import CardContent from '@material-ui/core/CardContent'
 import Button from '@material-ui/core/Button'
 import Typography from '@material-ui/core/Typography'
 import ToggleOnIcon from '@material-ui/icons/ToggleOn'
+import ToggleOffIcon from '@material-ui/icons/ToggleOff'
 import EmojiObjectsIcon from '@material-ui/icons/EmojiObjects'
 
 import Snackbar from '../snackbar'
@@ -70,6 +71,9 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
   actionItem: {
     display: 'inline-block',
   },
+  deviceLabel: {
+    color: grey[700],
+  },
   link: {
     textDecoration: 'none',
     color: grey[500],
@@ -108,7 +112,7 @@ const DeviceItem = ({ device }: DeviceItemProps) => {
   if (device.type === 'led') {
     if (deviceStatus) {
       // @ts-ignore TS2322
-      iconStyles = { ...iconStyles, fill: '#ffef62' }
+      iconStyles = { ...iconStyles, fill: '#ffc300' }
     }
     icon = <EmojiObjectsIcon style={iconStyles} />
     actions = (
@@ -119,7 +123,11 @@ const DeviceItem = ({ device }: DeviceItemProps) => {
       </>
     )
   } else if (device.type.toLowerCase().endsWith('button')) {
-    icon = <ToggleOnIcon style={{ ...iconStyles, fill: '#2a3eb1' }} />
+    if (deviceStatus) {
+      icon = <ToggleOnIcon style={{ ...iconStyles, fill: '#ffc300' }} />
+    } else {
+      icon = <ToggleOffIcon style={iconStyles} />
+    }
   }
 
   return (
@@ -127,13 +135,15 @@ const DeviceItem = ({ device }: DeviceItemProps) => {
       <Card className={classes.card}>
         <CardActionArea>
           <Link to={`/devices/view/${device.pin}`} className={classes.link}>
-            {icon}
+            <>
+              {icon}
+              <CardContent>
+                <Typography gutterBottom variant="h5" component="h2" className={classes.deviceLabel}>
+                  {device.label}
+                </Typography>
+              </CardContent>
+            </>
           </Link>
-          <CardContent>
-            <Typography gutterBottom variant="h5" component="h2">
-              {device.label}
-            </Typography>
-          </CardContent>
         </CardActionArea>
         <CardActions className={classes.cardActions} classes={{ root: classes.cardActionsRoot }}>
           {actions}
