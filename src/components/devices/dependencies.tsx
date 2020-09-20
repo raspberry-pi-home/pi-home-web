@@ -97,7 +97,7 @@ export default ({ device }: Props) => {
   return (
     <>
       <Snackbar message={error} severity="error" onClose={() => setError(null)}/>
-      {data ? loading ? <CircularProgress /> : (
+      {!error ? loading ? <CircularProgress /> : data ? (
         <>
           <Typography variant="h5" className={classes.title} noWrap>
             Device Dependencies
@@ -105,7 +105,7 @@ export default ({ device }: Props) => {
 
           {device?.dependencies && device?.dependencies.map(dependency => <DependencyItem key={dependency.pin} dependency={dependency} />)}
         </>
-      ) : null}
+      ) : null : null}
     </>
   )
 }

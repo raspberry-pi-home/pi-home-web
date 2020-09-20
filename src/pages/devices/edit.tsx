@@ -50,13 +50,13 @@ export default () => {
   return (
     <>
       <Snackbar message={error} severity="error" onClose={() => setError(null)}/>
-      {data ? loading ? <CircularProgress /> : (
+      {!error ? loading ? <CircularProgress /> : data ? (
         <>
           <DeviceSettings device={data} />
           <Box p={2} />
           <DeviceDependencies device={data} />
         </>
-      ) : null}
+      ) : null : null}
     </>
   )
 }

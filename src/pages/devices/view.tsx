@@ -79,7 +79,7 @@ export default () => {
   return (
     <>
       <Snackbar message={error} severity="error" onClose={() => setError(null)}/>
-      {data ? loading ? <CircularProgress /> : (
+      {!error ? loading ? <CircularProgress /> : data ? (
         <>
           view device {data?.pin}
           <SpeedDial
@@ -104,7 +104,7 @@ export default () => {
             />
           </SpeedDial>
         </>
-      ) : null}
+      ) : null : null}
     </>
   )
 }
